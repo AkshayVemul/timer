@@ -1,7 +1,8 @@
 # Cue Timer
 
 Countdown timers that talk you through it: a lead-in that announces what's coming, spoken callouts along
-the way (e.g. "Halfway through!"), and a voiced final countdown. Speech uses the browser's native
+the way (e.g. "Halfway through!"), a voiced final countdown, and an optional overtime stopwatch that keeps
+calling out every N seconds after the timer ends so you know how much further you went. Speech uses the browser's native
 `speechSynthesis` API; beeps use Web Audio. Timers and sound settings are saved in `localStorage`.
 
 ```bash

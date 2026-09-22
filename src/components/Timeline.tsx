@@ -1,11 +1,11 @@
 import { useMemo } from 'react'
-import { formatClock } from '../lib/format'
+import { formatClock, renderTemplate, shortDuration, spokenDuration } from '../lib/format'
 import { buildSchedule } from '../lib/schedule'
 import type { Phase, TimerConfig } from '../types'
 
 interface Row {
   key: string
-  kind: Phase['kind']
+  kind: Phase['kind'] | 'overtime'
   clock: string
   text: string
   spoken: boolean
@@ -60,6 +60,17 @@ export function Timeline({ timer }: { timer: TimerConfig }) {
 
   if (phases.length === 0) return null
 
+  const interval = Math.max(1, timer.overtimeIntervalSec)
+  const overtimeRows: Row[] = timer.overtime
+    ? [1, 2].map((n) => ({
+        key: `overtime-${n}`,
+        kind: 'overtime',
+        clock: `+${formatClock(n * interval)}`,
+        text: renderTemplate(timer.overtimeMessage, { name: timer.name, overtime: spokenDuration(n * interval) }),
+        spoken: true,
+      }))
+    : []
+
   return (
     <div className="timeline">
       <div className="timeline-bar" role="img" aria-label="Timer phases">
@@ -95,7 +106,7 @@ export function Timeline({ timer }: { timer: TimerConfig }) {
       </div>
 
       <ol className="timeline-rows">
-        {phases.flatMap(rowsFor).map((row) => (
+        {[...phases.flatMap(rowsFor), ...overtimeRows].map((row) => (
           <li key={row.key} data-phase={row.kind}>
             <span className="timeline-clock">{row.clock}</span>
             <span className={row.spoken ? 'timeline-text spoken' : 'timeline-text'}>{row.text}</span>
@@ -103,6 +114,9 @@ export function Timeline({ timer }: { timer: TimerConfig }) {
         ))}
       </ol>
       {timer.rounds > 1 && <p className="hint">Repeats for {timer.rounds} rounds.</p>}
+      {timer.overtime && (
+        <p className="hint">Then the stopwatch keeps going, calling out every {shortDuration(interval)} until you stop it.</p>
+      )}
     </div>
   )
 }

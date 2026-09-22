@@ -26,13 +26,16 @@ export function createTimer(overrides: Partial<TimerConfig> = {}): TimerConfig {
     rounds: 1,
     restSec: 0,
     restMessage: 'Rest. Round {round} of {rounds} starts in {rest}.',
+    overtime: false,
+    overtimeIntervalSec: 10,
+    overtimeMessage: '{overtime} over.',
     ...overrides,
   }
 }
 
 function seedTimers(): TimerConfig[] {
   return [
-    createTimer({ name: '50 second timer' }),
+    createTimer({ name: 'Plank', durationSec: 50, overtime: true }),
     createTimer({
       name: 'Intervals',
       durationSec: 30,

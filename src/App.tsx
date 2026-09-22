@@ -78,6 +78,9 @@ export default function App() {
         onToggleVoice={toggleVoice}
         onEdit={() => edit(running.id, 'run')}
         onExit={goToList}
+        onUpdateDuration={(durationSec) =>
+          setTimers(timers.map((t) => (t.id === running.id ? { ...t, durationSec } : t)))
+        }
       />
     )
   } else {

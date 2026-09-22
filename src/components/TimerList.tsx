@@ -21,6 +21,7 @@ function describe(timer: TimerConfig): string[] {
   if (timer.rounds > 1) {
     tags.push(`${timer.rounds} rounds${timer.restSec > 0 ? ` · ${shortDuration(timer.restSec)} rest` : ''}`)
   }
+  if (timer.overtime) tags.push(`overtime every ${shortDuration(timer.overtimeIntervalSec)}`)
   return tags
 }
 

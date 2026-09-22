@@ -12,6 +12,7 @@
   --work: #4fd68a;
   --rest: #5eb5ff;
   --final: #ff6b6b;
+  --overtime: #c48bff;
   --danger: #ff6b6b;
   --radius: 14px;
 
@@ -38,6 +39,7 @@
     --work: #12924c;
     --rest: #1673c9;
     --final: #d63a3a;
+    --overtime: #7c3aed;
     --danger: #d63a3a;
   }
 }
@@ -441,6 +443,10 @@ input.narrow {
   --phase: var(--final);
 }
 
+.runner[data-phase='overtime'] {
+  --phase: var(--overtime);
+}
+
 .runner-top {
   display: flex;
   justify-content: space-between;
@@ -771,6 +777,10 @@ input.narrow {
 
 .timeline-rows li[data-phase='rest'] {
   --dot: var(--rest);
+}
+
+.timeline-rows li[data-phase='overtime'] {
+  --dot: var(--overtime);
 }
 
 .timeline-rows li::before {

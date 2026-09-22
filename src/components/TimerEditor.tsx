@@ -58,6 +58,7 @@ export function TimerEditor({ initial, isNew, settings, onSave, onCancel, onDele
     rest: spokenDuration(draft.restSec),
     round: Math.min(2, draft.rounds),
     rounds: draft.rounds,
+    overtime: spokenDuration(Math.max(1, draft.overtimeIntervalSec) * 2),
   }
   // Previewing ignores the mute switch: pressing the button is an explicit ask to hear it.
   const preview = (template: string) =>
@@ -92,6 +93,7 @@ export function TimerEditor({ initial, isNew, settings, onSave, onCancel, onDele
       durationSec: Math.max(1, draft.durationSec),
       rounds: Math.max(1, draft.rounds),
       countdownFrom: Math.max(1, draft.countdownFrom),
+      overtimeIntervalSec: Math.max(1, draft.overtimeIntervalSec),
     })
   }
 
@@ -309,6 +311,44 @@ export function TimerEditor({ initial, isNew, settings, onSave, onCancel, onDele
                     </p>
                   </div>
                 )}
+              </>
+            )}
+          </Section>
+
+          <Section
+            title="Overtime"
+            hint="Keep a stopwatch running after the timer ends, so you can see how much further you can go. Stop it yourself when you're spent, then bump the timer for next time."
+          >
+            <label className="check">
+              <input type="checkbox" checked={draft.overtime} onChange={(e) => set('overtime', e.target.checked)} />
+              Keep counting after the timer ends
+            </label>
+            {draft.overtime && (
+              <>
+                <div className="field">
+                  <label htmlFor="overtimeInterval">Call out every</label>
+                  <DurationInput
+                    id="overtimeInterval"
+                    value={draft.overtimeIntervalSec}
+                    onChange={(v) => set('overtimeIntervalSec', v)}
+                    maxSec={3600}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="overtimeMessage">Callout</label>
+                  <div className="with-action">
+                    <input
+                      id="overtimeMessage"
+                      type="text"
+                      value={draft.overtimeMessage}
+                      onChange={(e) => set('overtimeMessage', e.target.value)}
+                    />
+                    {previewButton(draft.overtimeMessage)}
+                  </div>
+                  <p className="hint">
+                    <code>{'{overtime}'}</code> becomes the time gone over, e.g. “20 seconds over.”
+                  </p>
+                </div>
               </>
             )}
           </Section>

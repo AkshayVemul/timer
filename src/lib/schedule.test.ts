@@ -16,6 +16,9 @@ const base: TimerConfig = {
   rounds: 1,
   restSec: 0,
   restMessage: 'Rest. Round {round} of {rounds} in {rest}.',
+  overtime: false,
+  overtimeIntervalSec: 10,
+  overtimeMessage: '{overtime} over.',
 }
 
 const said = (timer: TimerConfig, phaseIndex: number) =>

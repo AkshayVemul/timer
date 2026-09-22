@@ -1,6 +1,8 @@
 const paths = {
   play: <path d="M7 4.5v15l12-7.5z" fill="currentColor" stroke="none" />,
   pause: <path d="M7 4h3.5v16H7zM13.5 4H17v16h-3.5z" fill="currentColor" stroke="none" />,
+  stop: <rect x="6" y="6" width="12" height="12" rx="2" fill="currentColor" stroke="none" />,
+  check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
   skip: <path d="M5 5l9 7-9 7zM18 5v14" />,
   restart: <path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v4.5h4.5" />,
   back: <path d="M15 5l-7 7 7 7" />,

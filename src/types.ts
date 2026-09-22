@@ -28,6 +28,11 @@ export interface TimerConfig {
   /** Rest between rounds. 0 runs rounds back to back. */
   restSec: number
   restMessage: string
+  /** Keep a stopwatch running after the last round until the user stops it. */
+  overtime: boolean
+  overtimeIntervalSec: number
+  /** Spoken at every interval; `{overtime}` is the time gone over. */
+  overtimeMessage: string
 }
 
 export interface Settings {
